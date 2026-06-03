@@ -1,69 +1,69 @@
-# TitanBot - Ultimate Discord Bot
+# ЭтерисBot - Ультра-модульный Discord Bot
 
-**TitanBot** is a powerful, feature-rich Discord bot designed to enhance your server experience with comprehensive moderation tools, engaging economy systems, utility features, and much more. Built with modern Discord.js v14 for interaction handling, PostgreSQL for data persistence, and Redis for performance optimization through caching and rate control.
+**ЭтерисBot** — это мощный, функциональный Discord bot, созданный для улучшения опыта в сервере через комплексные инструменты модерации, увлекательные системы экономики, утилиты и многое другое. Разработан на современном Discord.js v14 для обработки интеракций, PostgreSQL для хранения данных и Redis для оптимизации производительности через кэширование и управление рейт-лимитами.
 
-## Features Overview
+## Обзор функций
 
-- **Moderation & Administration**: Mass actions, user notes, case management
-- **Economy System**: Shop, gambling, pay system (cached in Redis)
-- **Fun & Utility**: Random facts, text reversal (Redis for response caching)
-- **Ticket System**: Advanced ticket handling with transcript persistence
-- **Stats Monitoring**: Member counters, voice stats (Redis-backed statistics)
-- **Leveling System**: XP tracking, level roles (Redis cache for XP increments)
-- **Giveaways**: Multi-winner, auto-pick support (Redis for winner selection history)
-- **Birthday Announcements**: Timezone-aware reminders
-- **Utility Tools**: Reporting, todo lists (Redis for task persistence)
-- **Welcome System**: Custom embeds, auto-role assignment
+- **Модерация & Администрирование**: Массовые действия, заметки пользователей, управление делами
+- **Система экономики**: Магазин, азартные игры, платежная система (кэширование в Redis)
+- **Развлечения & Утилиты**: Случайные факты, переворот текста (Redis для кэширования ответов)
+- **Система тикетов**: Расширенное управление тикетами с сохранением протоколов
+- **Мониторинг статистики**: Счетчики участников, статистика голосовых каналов (поддержка Redis)
+- **Система уровней**: Отслеживание XP, уровневые роли (Redis кэширование для прироста XP)
+- **Розыгрыши**: Поддержка нескольких победителей, автоматический выбор победителей (Redis для истории выбора победителей)
+- **Объявления о днях рождения**: Уведомления с учетом часовых поясов
+- **Инструменты управления**: Система жалоб, списки дел (Redis для сохранения задач)
+- **Система приветствия**: Персонализированные встраивания, автоматическое присвоение ролей
 
-## Redis Integration
+## Интеграция Redis
 
-TitanBot uses Redis to enhance performance and reliability:
-- **Caching**: Member lists, moderation logs (invalidated after 24h)
-- **Rate Limiting**: Economic operations, command usage
-- **Economy System**: Transactions stored in Redis with PostgreSQL persistence
-- **Caching Strategy**: LRU cache with automatic invalidation
-- **Redis Cluster Support**: For scalable deployments
+**ЭтерисBot** использует Redis для повышения производительности и надежности:
+- **Кэширование**: Списки участников, логи модерации (аннулирование через 24 часа)
+- **Рейт-лимитирование**: Экономические операции, использование команд
+- **Система экономики**: Транзакции хранятся в Redis с последующим сохранением в PostgreSQL
+- **Стратегия кэширования**: LRU кэш с автоматической аннулированием
+- **Поддержка Redis Cluster**: Для масштабируемых развертываний
 
-**Implementation Status**:
-- ✅ Basic caching (servers, commands)
-- ✅ Rate limiting for economic operations
-- ✅ Economy persistence with Redis
-- ✅ Redis-based statistic tracking
+**Статус реализации**:
+- ✅ Базовое кэширование (серверы, команды)
+- ✅ Рейт-лимитирование для экономических операций
+- ✅ Постоянство экономики с Redis
+- ✅ Redis-отслеживание статистики
 
-## Quick Setup
+## Быстрая настройка
 
-### Railway Deployment
-- Set environment variables in Railway dashboard:
-  - `REDIS_URL` (use integrated Redis service)
-  - `UPSTASH_REDIS_REST_URL` (optional)
+### Развертывание на Railway
+- Установите переменные окружения в панели Railway:
+  - `REDIS_URL` (использовать встроенную услугу Redis)
+  - `UPSTASH_REDIS_REST_URL` (опционально)
   - `UPSTASH_REDIS_REST_TOKEN`
 
-### Redis Security (Self-hosted)
-- Require TLS connections
-- Set `requirepass` in redis.conf
-- Bind to localhost/127.0.0.1
-- Rotate Redis passwords regularly
+### Безопасность Redis (Самообслуживание)
+- Требуйте подключения TLS
+- Установите `requirepass` в redis.conf
+- Привяжите к localhost/127.0.0.1
+- Регулярно меняйте пароли Redis
 
-## Roadmap
+## План развития
 
-- [x] Basic Redis caching
-- [x] Economy system integration
-- [x] Rate limiting for economic commands
-- [ ] Redis-backed WebSocket updates
-- [ ] Redis-assisted rate limiting for API endpoints
+- [x] Базовое кэширование Redis
+- [x] Интеграция системы экономики
+- [x] Рейт-лимитирование для экономических команд
+- [ ] Обновления WebSocket с поддержкой Redis
+- [ ] Redis-ассистирующее рейт-лимитирование для API-точек входа
 
-## Security
+## Безопасность
 
-- All Redis connections use TLS
-- Self-hosted Redis requires strong password
-- Railway/Upstash Redis uses token authentication
-- Connection rate-limiting implemented
-- Regular cache invalidation
+- Все подключения Redis используют TLS
+- Самообслуживаемый Redis требует надежного пароля
+- Railway/Upstash Redis использует аутентификацию токеном
+- Реализовано рейт-лимитирование подключений
+- Регулярная аннулирование кэша
 
-## License
+## Лицензия
 
 MIT License
 
 Copyright (c) 2026 TouchPoint Support
 
-Permission is hereby granted... (full license text preserved)
+Permission is hereby granted... (полный текст лицензии сохранен)
