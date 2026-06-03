@@ -6,8 +6,8 @@ export const botConfig = {
   // BOT PRESENCE (what users see under the bot name)
   // =========================
   // `status` options:
-  // - "online"    = green dot
-  // - "idle"      = yellow moon
+  // - "online"    = зеленая точка
+  // - "idle"      = желтая луна
   // - "dnd"       = red do-not-disturb
   // - "invisible" = appears offline
   presence: {
@@ -24,7 +24,7 @@ export const botConfig = {
     // 5 = Competing
     activities: [
       {
-        // Text users will see (example: "Playing /help | Titan Bot").
+        // Текст, который увидят пользователи (пример: "Игра /help | ЭтерисBot")
         name: "Made with ❤️",
         // Activity type number (0 = Playing).
         type: 0, 
@@ -136,7 +136,7 @@ export const botConfig = {
     },
     footer: {
       // Default footer text used in bot embeds.
-      text: "Titan Bot",
+      text: "ЭтерисBot",
       // Footer icon URL (null = no icon).
       icon: null,
     },
