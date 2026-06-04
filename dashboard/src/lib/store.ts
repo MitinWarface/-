@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
 interface ServerState {
-  servers: Server[];
-  loading: boolean;
-  error: string | null;
-  fetchServers: () => Promise<void>;
+   servers: Server[];
+   loading: boolean;
+   error: string | null;
+   fetchServers: () => Promise<void>;
+   fetchServersComplete: () => void;
 }
 
 interface Server {
@@ -68,7 +69,8 @@ export const useServerStore = create<ServerState>((set) => ({
       set({ error: "Failed to fetch servers", loading: false });
       console.error(err);
     }
-  }
+  },
+  fetchServersComplete: () => {}
 }));
 
 export const useUserStore = create<UserState>((set) => ({

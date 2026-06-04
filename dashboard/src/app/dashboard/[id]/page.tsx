@@ -1,12 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { fetchServerStats, fetchServerLogs, fetchServerActivity, fetchModules } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader as ShadcnCardHeader } from '@/components/ui/card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { useServerStore } from '@/lib/store';
+import { get as redisGet, setex as redisSet } from '@/lib/postgresCache';
 
 type Stat = { label: string; value: string };
 type Action = { name: string; time: string };
@@ -33,7 +35,7 @@ export default async function Overview() {
 
     // Cache to Redis
     const cacheKey = `server:${serverId}:all`;
-    await redis.setCached(cacheKey, { stats, logs, activity, modules }, 600);
+     await redisSet(cacheKey, 600, { stats, logs, activity, modules });
   };
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default async function Overview() {
 
   useEffect(() => {
     const loadCached = async () => {
-      const cached = await redis.get<any>(`server:${serverId}:all`);
+       const cached = await redisGet<any>(`server:${serverId}:all`);
       if (cached) {
         setStats(cached.stats);
         setLogs(cached.logs);

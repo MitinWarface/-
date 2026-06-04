@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useUserStore } from "@/lib/store";
 
 export default function Header() {
-  const { user, isLoading, fetchUser } = useUserStore();
+  const { user, loading, fetchUser } = useUserStore();
   
   // In real app, this would be called automatically or on auth
   // useEffect(() => { fetchUser(); }, [fetchUser]);
