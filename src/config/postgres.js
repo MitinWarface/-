@@ -1,4 +1,4 @@
-import { assertAllowlistedIdentifier } from '../utils/sqlIdentifiers.js';
+﻿import { assertAllowlistedIdentifier } from '../utils/sqlIdentifiers.js';
 import { EXPECTED_SCHEMA_LABEL, EXPECTED_SCHEMA_VERSION } from './schemaVersion.js';
 
 const configuredTables = {
@@ -49,13 +49,13 @@ const validatedTables = Object.fromEntries(
 
 
 export const pgConfig = {
-    url: process.env.POSTGRES_URL || 'postgresql://localhost:5432/titanbot',
+    url: process.env.POSTGRES_URL || 'postgresql://localhost:5432/ЭтерисБот',
     
     options: {
         
         host: process.env.POSTGRES_HOST || 'localhost',
         port: parseInt(process.env.POSTGRES_PORT) || 5432,
-        database: process.env.POSTGRES_DB || 'titanbot',
+        database: process.env.POSTGRES_DB || 'ЭтерисБот',
         user: process.env.POSTGRES_USER || 'postgres',
         password: (process.env.POSTGRES_PASSWORD || '').toString(),
         ssl: false,
@@ -67,7 +67,7 @@ export const pgConfig = {
         connectionTimeoutMillis: parseInt(process.env.POSTGRES_CONNECTION_TIMEOUT) || 10000,
         
         
-        application_name: 'titanbot',
+        application_name: 'ЭтерисБот',
         statement_timeout: process.env.NODE_ENV === 'production' ? 30000 : 0,
         keepalives: 1,
         keepalives_idle: 30,
@@ -143,5 +143,6 @@ export const pgConfig = {
 };
 
 export default pgConfig;
+
 
 

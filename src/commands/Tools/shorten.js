@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, MessageFlags } from 'discord.js';
+﻿import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import { createEmbed, errorEmbed, successEmbed, infoEmbed, warningEmbed } from '../../utils/embeds.js';
 import { logger } from '../../utils/logger.js';
 import { handleInteractionError } from '../../utils/errorHandler.js';
@@ -72,7 +72,7 @@ export default {
                 response = await fetch(apiUrl, {
                     signal: controller.signal,
                     headers: {
-                        'User-Agent': 'TitanBot URL Shortener/1.0'
+                        'User-Agent': 'ЭтерисБот URL Shortener/1.0'
                     }
                 });
             } catch (networkError) {
@@ -134,5 +134,6 @@ export default {
         }
     },
 };
+
 
 

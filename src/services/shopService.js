@@ -1,4 +1,4 @@
-import { EmbedBuilder } from 'discord.js';
+﻿import { EmbedBuilder } from 'discord.js';
 import { shopConfig, shopItems, getItemById, validatePurchase, getCurrentPrice, getItemsInCategory } from '../config/shop/index.js';
 import { logger } from '../utils/logger.js';
 import { getEconomyData, setEconomyData } from '../utils/economy.js';
@@ -150,7 +150,7 @@ class ShopService {
         const { category, page = 1 } = options;
         
         const embed = new EmbedBuilder()
-            .setTitle('🛒 TitanBot Shop')
+            .setTitle('🛒 ЭтерисБот Shop')
             .setColor('#5865F2')
             .setDescription('Browse and purchase items from the shop. Use the buttons to navigate.')
             .setFooter({ text: `Page ${page}` });
@@ -205,6 +205,7 @@ class ShopService {
 
 const shopService = new ShopService();
 export default shopService;
+
 
 
 

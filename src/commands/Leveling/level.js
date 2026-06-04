@@ -1,9 +1,9 @@
-import { getColor } from '../../config/bot.js';
+﻿import { getColor } from '../../config/bot.js';
 import { SlashCommandBuilder, PermissionFlagsBits, ChannelType, MessageFlags } from 'discord.js';
 import { createEmbed, errorEmbed } from '../../utils/embeds.js';
 import { getLevelingConfig, saveLevelingConfig } from '../../services/leveling.js';
 import { botHasPermission } from '../../utils/permissionGuard.js';
-import { TitanBotError, ErrorTypes, handleInteractionError } from '../../utils/errorHandler.js';
+import { ЭтерисБотError, ErrorTypes, handleInteractionError } from '../../utils/errorHandler.js';
 import { InteractionHelper } from '../../utils/interactionHelper.js';
 import { logger } from '../../utils/logger.js';
 import levelDashboard from './modules/level_dashboard.js';
@@ -111,7 +111,7 @@ export default {
                 }
 
                 if (!botHasPermission(channel, ['SendMessages', 'EmbedLinks'])) {
-                    throw new TitanBotError(
+                    throw new ЭтерисБотError(
                         'Bot missing permissions in the specified channel',
                         ErrorTypes.PERMISSION,
                         `I need **SendMessages** and **EmbedLinks** permissions in ${channel} to send level-up notifications.`,
@@ -177,3 +177,4 @@ export default {
         }
     },
 };
+

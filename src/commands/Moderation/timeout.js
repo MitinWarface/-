@@ -1,8 +1,8 @@
-import { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, ChannelType } from 'discord.js';
+﻿import { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, ChannelType } from 'discord.js';
 import { createEmbed, errorEmbed, successEmbed, infoEmbed, warningEmbed } from '../../utils/embeds.js';
 import { logModerationAction } from '../../utils/moderation.js';
 import { logger } from '../../utils/logger.js';
-import { TitanBotError, ErrorTypes } from '../../utils/errorHandler.js';
+import { ЭтерисБотError, ErrorTypes } from '../../utils/errorHandler.js';
 
 
 import { InteractionHelper } from '../../utils/interactionHelper.js';
@@ -52,7 +52,7 @@ export default {
 
         try {
             if (!interaction.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     "User lacks permission",
                     ErrorTypes.PERMISSION,
                     "You need the `Moderate Members` permission to set a timeout."
@@ -65,21 +65,21 @@ export default {
             const reason = interaction.options.getString("reason") || "No reason provided";
 
             if (targetUser.id === interaction.user.id) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     "Cannot timeout self",
                     ErrorTypes.VALIDATION,
                     "You cannot timeout yourself."
                 );
             }
             if (targetUser.id === client.user.id) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     "Cannot timeout bot",
                     ErrorTypes.VALIDATION,
                     "You cannot timeout the bot."
                 );
             }
             if (!member) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     "Target not found",
                     ErrorTypes.USER_INPUT,
                     "The target user is not currently in this server."
@@ -87,7 +87,7 @@ export default {
             }
 
             if (!member.moderatable) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     "Cannot timeout member",
                     ErrorTypes.PERMISSION,
                     "I cannot timeout this user. They might have a higher role than me or you."
@@ -139,6 +139,7 @@ export default {
         }
     }
 };
+
 
 
 

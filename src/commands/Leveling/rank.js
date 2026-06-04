@@ -1,11 +1,11 @@
-
+﻿
 
 
 
 
 import { SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js';
 import { logger } from '../../utils/logger.js';
-import { handleInteractionError, TitanBotError, ErrorTypes } from '../../utils/errorHandler.js';
+import { handleInteractionError, ЭтерисБотError, ErrorTypes } from '../../utils/errorHandler.js';
 import { getUserLevelData, getLevelingConfig, getXpForLevel } from '../../services/leveling.js';
 
 import { InteractionHelper } from '../../utils/interactionHelper.js';
@@ -51,7 +51,7 @@ export default {
         .catch(() => null);
 
       if (!member) {
-        throw new TitanBotError(
+        throw new ЭтерисБотError(
           `User ${targetUser.id} not found in guild`,
           ErrorTypes.USER_INPUT,
           'Could not find the specified user in this server.'
@@ -122,6 +122,7 @@ function createProgressBar(percentage, length = 10) {
   const filled = Math.round((percentage / 100) * length);
   return '█'.repeat(filled) + '░'.repeat(length - filled);
 }
+
 
 
 

@@ -1,4 +1,4 @@
-import { getColor } from '../../../config/bot.js';
+﻿import { getColor } from '../../../config/bot.js';
 import {
     ActionRowBuilder,
     StringSelectMenuBuilder,
@@ -19,7 +19,7 @@ import {
 import { InteractionHelper } from '../../../utils/interactionHelper.js';
 import { successEmbed, errorEmbed } from '../../../utils/embeds.js';
 import { logger } from '../../../utils/logger.js';
-import { TitanBotError, ErrorTypes } from '../../../utils/errorHandler.js';
+import { ЭтерисБотError, ErrorTypes } from '../../../utils/errorHandler.js';
 import { getLevelingConfig, saveLevelingConfig } from '../../../services/leveling.js';
 import { botHasPermission } from '../../../utils/permissionGuard.js';
 
@@ -153,7 +153,7 @@ export default {
             const cfg = await getLevelingConfig(client, guildId);
 
             if (!cfg.configured) {
-                throw new TitanBotError(
+                throw new ЭтерисБотError(
                     'Leveling system not configured',
                     ErrorTypes.CONFIGURATION,
                     'The leveling system has not been set up yet. Run `/level setup` first to configure it.',
@@ -205,14 +205,14 @@ export default {
                             break;
                     }
                 } catch (error) {
-                    if (error instanceof TitanBotError) {
+                    if (error instanceof ЭтерисБотError) {
                         logger.debug(`Leveling config validation error: ${error.message}`);
                     } else {
                         logger.error('Unexpected leveling dashboard error:', error);
                     }
 
                     const errorMessage =
-                        error instanceof TitanBotError
+                        error instanceof ЭтерисБотError
                             ? error.userMessage || 'An error occurred while processing your selection.'
                             : 'An unexpected error occurred while updating the configuration.';
 
@@ -307,9 +307,9 @@ export default {
                 }
             });
         } catch (error) {
-            if (error instanceof TitanBotError) throw error;
+            if (error instanceof ЭтерисБотError) throw error;
             logger.error('Unexpected error in level_dashboard:', error);
-            throw new TitanBotError(
+            throw new ЭтерисБотError(
                 `Level dashboard failed: ${error.message}`,
                 ErrorTypes.UNKNOWN,
                 'Failed to open the leveling dashboard.',
@@ -838,4 +838,5 @@ async function handleXpCooldown(selectInteraction, rootInteraction, cfg, guildId
 
     await refreshDashboard(rootInteraction, cfg, guildId);
 }
+
 
