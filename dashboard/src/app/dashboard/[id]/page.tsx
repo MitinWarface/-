@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader as ShadcnCardHeader } from '@/components/ui/card';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { useServerStore } from '@/lib/store';
 import { get as redisGet, setex as redisSet } from '@/lib/postgresCache';
 
@@ -148,8 +149,8 @@ function KernelCard(props: { module: Module }) {
           {props.module.enabled ? 'Active' : 'Disabled'}
         </span>
         <div className="flex items-center justify-between mt-2">
-          <span className="text-xs text-slate-400">{module.description}</span>
-          <Switch enabled={props.module.enabled} onChange={handleToggle} />
+           <span className="text-xs text-slate-400">{props.module.description}</span>
+           <Switch checked={props.module.enabled} onChange={(e) => handleToggle(props.module.id)} />
         </div>
       </CardContent>
     </Card>

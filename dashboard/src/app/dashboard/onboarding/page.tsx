@@ -2,7 +2,7 @@
 
 import { Card, CardHeader as ShadcnCardHeader, CardContent } from '@/components/ui/card';
 import { Button, UseFormSetError } from '@/components/ui/button';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { Loader } from '@/components/ui/loader';
 
 export default function OnboardingPage() {
