@@ -212,11 +212,11 @@ class TitanBot extends Client {
         }
 
         if (hasStartedListening && errorCode === 'EADDRINUSE') {
-          logger.warn(`Web server reported a duplicate bind warning on ${host}:${port}, but the bot remains online.`);
+           logger.warn(`Веб-сервер сообщил о предупреждении повторного привязывания на ${host}:${port}, но бот остается онлайн.`);
           return;
         }
 
-        logger.error(`❌ Web server error on port ${port} (${errorCode}): ${errorMessage}`);
+         logger.error(`❌ Ошибка веб-сервера на порту ${port} (${errorCode}): ${errorMessage}`);
 
         if (!hasStartedListening) {
           process.exit(1);
@@ -307,11 +307,11 @@ class TitanBot extends Client {
      }
    }
 
-   async shutdown(reason = 'UNKNOWN') {
-     shutdownLog(`Бот выключается (${reason})...`);
-     logger.info(`\n${'='.repeat(60)}`);
-     logger.info(`🛑 Инициировано graceful завершение работы (${reason})`);
-     logger.info(`${'='.repeat(60)}`);
+    async shutdown(reason = 'UNKNOWN') {
+      shutdownLog(`Бот выключается (${reason})...`);
+      logger.info(`\n${'='.repeat(60)}`);
+      logger.info(`🛑 Инициировано корректное завершение работы (${reason})`);
+      logger.info(`${'='.repeat(60)}`);
 
      try {
        
@@ -345,11 +345,11 @@ class TitanBot extends Client {
          }
       }
 
-      logger.info('✅ Graceful shutdown complete');
-  shutdownLog('Bot stopped successfully.');
-      process.exit(0);
+       logger.info('✅ Корректное завершение работы выполнено');
+   shutdownLog('Бот успешно остановлен.');
+       process.exit(0);
      } catch (error) {
-       logger.error('Ошибка во время graceful завершения работы:', error);
+        logger.error('Ошибка во время корректного завершения работы:', error);
        process.exit(1);
      }
   }
@@ -367,18 +367,18 @@ try {
        bot.shutdown('UNCAUGHT_EXCEPTION');
      });
     
-    process.on('unhandledRejection', (reason, promise) => {
-      logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-      bot.shutdown('UNHANDLED_REJECTION');
-    });
+     process.on('unhandledRejection', (reason, promise) => {
+       logger.error('Необработанное отклонение в:', promise, 'причина:', reason);
+       bot.shutdown('UNHANDLED_REJECTION');
+     });
   };
   
   setupShutdown();
   bot.start();
-} catch (error) {
-  logger.error('Fatal error during bot startup:', error);
-  process.exit(1);
-}
+ } catch (error) {
+   logger.error('Критическая ошибка во время запуска бота:', error);
+   process.exit(1);
+ }
 
 export default TitanBot;
 

@@ -21,13 +21,13 @@ class DatabaseWrapper {
         }
 
         try {
-            logger.info('Attempting to connect to PostgreSQL...');
+             logger.info('Попытка подключения к PostgreSQL...');
             const pgConnected = await pgDb.connect();
             if (pgConnected) {
                 this.db = pgDb;
                 this.connectionType = 'postgresql';
                 this.degradedReason = null;
-                logger.info('✅ PostgreSQL Database initialized - using persistent database');
+                 logger.info('✅ База данных PostgreSQL инициализирована - используется постоянная база данных');
                 this.initialized = true;
                 return;
             }
@@ -41,7 +41,7 @@ class DatabaseWrapper {
                 throw schemaError;
             }
         } catch (error) {
-            logger.warn('PostgreSQL connection failed:', error.message);
+             logger.warn('Ошибка подключения к Postgreлью:', error.message);
 
             if (error.code === 'SCHEMA_VERSION_MISMATCH') {
                 throw error;
@@ -53,8 +53,8 @@ class DatabaseWrapper {
         this.useFallback = true;
         this.connectionType = 'memory';
         this.degradedReason = 'POSTGRES_UNAVAILABLE';
-        logger.warn('⚠️  DATABASE DEGRADED MODE ENABLED - Using in-memory storage (data will be lost on restart)');
-        logger.warn('⚠️  Please check PostgreSQL connection and restart the bot when fixed');
+         logger.warn('⚠️  РЕЖИМ УХУДШЕННОЙ РАБОТЫ БАЗЫ ДАННЫХ ВКЛЮЧЕН - Используется хранилище в памяти (данные будут потеряны при перезапуске)');
+         logger.warn('⚠️  Пожалуйста, проверьте подключение к PostgreSQL и перезапустите бота после исправления');
         this.initialized = true;
         this.degradedModeWarningShown = true;
     }
@@ -163,12 +163,12 @@ export const db = new DatabaseWrapper();
 
 export async function initializeDatabase() {
     try {
-        logger.info("Initializing Database (PostgreSQL > Memory fallback)...");
+         logger.info("Инициализация базы данных (PostgreSQL > резерв в памяти)...");
         await db.initialize();
-        logger.info("✅ Database initialized");
+         logger.info("✅ База данных инициализирована");
         return { db };
     } catch (error) {
-        logger.error("❌ Database Initialization Error:", error);
+         logger.error("❌ Ошибка инициализации базы данных:", error);
 
         if (error.code === 'SCHEMA_VERSION_MISMATCH') {
             throw error;
@@ -183,7 +183,7 @@ export async function getFromDb(key, defaultValue = null) {
         const value = await db.get(key);
         return value === null ? defaultValue : value;
     } catch (error) {
-        logger.error(`Error getting value for key ${key}:`, error);
+         logger.error(`Ошибка получения значения для ключа ${key}:`, error);
         return defaultValue;
     }
 }
@@ -193,7 +193,7 @@ export async function setInDb(key, value, ttl = null) {
         await db.set(key, value, ttl);
         return true;
     } catch (error) {
-        logger.error(`Error setting value for key ${key}:`, error);
+         logger.error(`Ошибка установки значения для ключа ${key}:`, error);
         return false;
     }
 }
@@ -203,7 +203,7 @@ export async function deleteFromDb(key) {
         await db.delete(key);
         return true;
     } catch (error) {
-        logger.error(`Error deleting key ${key}:`, error);
+         logger.error(`Ошибка удаления ключа ${key}:`, error);
         return false;
     }
 }
@@ -235,7 +235,7 @@ export async function insertVerificationAudit(record) {
         await setInDb(key, auditEntries);
         return true;
     } catch (error) {
-        logger.error('Error storing verification audit:', error);
+         logger.error('Ошибка хранения аудита верификации:', error);
         return false;
     }
 }
@@ -278,7 +278,7 @@ export async function getGuildConfig(client, guildId, context = {}) {
 
         return normalizeGuildConfig(cleanedConfig, DEFAULT_GUILD_CONFIG);
     } catch (error) {
-        logger.error(`Error fetching config for guild ${guildId}`, {
+         logger.error(`Ошибка получения конфигурации для гильдии ${guildId}`, {
             error,
             traceId: context.traceId,
             guildId,
