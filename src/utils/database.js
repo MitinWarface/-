@@ -299,7 +299,7 @@ export async function getGuildConfig(client, guildId, context = {}) {
 export async function setGuildConfig(client, guildId, config, context = {}) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-            logger.error("Database client is not available for setGuildConfig");
+             logger.error("Клиент базы данных недоступен для setGuildConfig");
             return false;
         }
 
@@ -335,7 +335,7 @@ export const getColor = (path, fallback = "#000000") => {
 
     for (const part of parts) {
         if (current[part] === undefined) {
-            logger.warn(`Color path '${path}' not found in config, using fallback`);
+             logger.warn(`Путь к цвету '${path}' не найден в конфигурации, используется fallback`);
             return fallback;
         }
         current = current[part];
@@ -354,7 +354,7 @@ export async function getGuildBirthdays(client, guildId) {
     const key = getGuildBirthdaysKey(guildId);
     try {
         if (!client.db || typeof client.db.get !== "function") {
-            logger.error("Database client is not available for getGuildBirthdays.");
+             logger.error("Клиент базы данных недоступен для getGuildBirthdays.");
             return {};
         }
 
@@ -378,7 +378,7 @@ export async function getGuildBirthdays(client, guildId) {
 export async function setBirthday(client, guildId, userId, month, day) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-            logger.error("Database client is not available for setBirthday.");
+             logger.error("Клиент базы данных недоступен для setBirthday.");
             return false;
         }
 
@@ -403,7 +403,7 @@ export async function setBirthday(client, guildId, userId, month, day) {
 export async function deleteBirthday(client, guildId, userId) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-            logger.error("Database client is not available for deleteBirthday.");
+             logger.error("Клиент базы данных недоступен для deleteBirthday.");
             return false;
         }
 
@@ -445,7 +445,7 @@ export async function getGuildGiveaways(client, guildId) {
     const key = giveawayKey(guildId);
     try {
         if (!client.db || typeof client.db.get !== "function") {
-            logger.error("Database client is not available for getGuildGiveaways.");
+             logger.error("Клиент базы данных недоступен для getGuildGiveaways.");
             return {};
         }
 
@@ -467,7 +467,7 @@ export async function getGuildGiveaways(client, guildId) {
 export async function saveGiveaway(client, guildId, giveawayData) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-            logger.error("Database client is not available for saveGiveaway.");
+             logger.error("Клиент базы данных недоступен для saveGiveaway.");
             return false;
         }
 
@@ -479,7 +479,7 @@ export async function saveGiveaway(client, guildId, giveawayData) {
         await client.db.set(key, giveaways);
         return true;
     } catch (error) {
-        logger.error('Error saving giveaway:', error);
+         logger.error('Ошибка сохранения розыгрыша:', error);
         return false;
     }
 }
@@ -503,7 +503,7 @@ export async function deleteGiveaway(client, guildId, messageId) {
         }
         return false;
     } catch (error) {
-        logger.error('Error deleting giveaway:', error);
+         logger.error('Ошибка удаления розыгрыша:', error);
         return false;
     }
 }
@@ -517,7 +517,7 @@ export async function deleteGiveaway(client, guildId, messageId) {
 export async function getEndedGiveaways(client) {
     try {
         if (!client.db || !client.db.isAvailable()) {
-            logger.warn('Database not available for getEndedGiveaways, using fallback');
+             logger.warn('База данных недоступна для getEndedGiveaways, используется fallback');
             return [];
         }
 
@@ -538,7 +538,7 @@ export async function getEndedGiveaways(client) {
 
         return result.rows || [];
     } catch (error) {
-        logger.error('Error getting ended giveaways:', error);
+         logger.error('Ошибка получения завершенных розыгрышей:', error);
         return [];
     }
 }
@@ -553,7 +553,7 @@ export async function getEndedGiveaways(client) {
 export async function markGiveawayEnded(client, giveawayId, endedData) {
     try {
         if (!client.db || !client.db.isAvailable()) {
-            logger.warn('Database not available for markGiveawayEnded');
+             logger.warn('База данных недоступна для markGiveawayEnded');
             return false;
         }
 
@@ -573,7 +573,7 @@ export async function markGiveawayEnded(client, giveawayId, endedData) {
 
         return true;
     } catch (error) {
-        logger.error('Error marking giveaway as ended:', error);
+         logger.error('Ошибка отметки розыгрыша как завершенного:', error);
         return false;
     }
 }
