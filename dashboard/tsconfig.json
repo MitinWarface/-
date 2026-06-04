@@ -1,1 +1,24 @@
-{ "compilerOptions": { "target": "esnext", "module": "esnext", "lib": [ "dom", "esnext "], "type": "module", "strict": true, "jsx": "react-jsx "}, "include": [ "src/***/ "], "baseUrl": ". /", "paths": { "∗": [ "node_modules/* "] } } }
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["dom", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

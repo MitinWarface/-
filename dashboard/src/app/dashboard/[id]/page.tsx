@@ -78,8 +78,8 @@ export default async function Overview() {
 
       {/* Quick actions */}
       <div className="flex gap-4">
-        <Button variant="outline" onClick={() => console.log('Reload config')}}>Reload Config</Button>
-        <Button variant="destructive" onClick={() => console.log('Disable bot')}}>Disable Bot</Button>
+        <Button variant="outline" onClick={() => console.log('Reload config')}>Reload Config</Button>
+        <Button variant="destructive" onClick={() => console.log('Disable bot')}>Disable Bot</Button>
       </div>
 
       {/* Recent actions table */}
