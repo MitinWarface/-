@@ -6,7 +6,7 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("ping")
-        .setDescription("Checks the bot's latency and API speed"),
+        .setDescription("Проверяет задержку бота и скорость API"),
 
     async execute(interaction) {
         const deferSuccess = await InteractionHelper.safeDefer(interaction);
@@ -21,15 +21,15 @@ export default {
 
         try {
             await InteractionHelper.safeEditReply(interaction, {
-                content: "Pinging...",
+                content: "Пинг...",
             });
 
             const latency = Date.now() - interaction.createdTimestamp;
             const apiLatency = Math.round(interaction.client.ws.ping);
 
             const embed = createEmbed({ title: "🏓 Pong!", description: null }).addFields(
-                { name: "Bot Latency", value: `${latency}ms`, inline: true },
-                { name: "API Latency", value: `${apiLatency}ms`, inline: true },
+                { name: "Задержка бота", value: `${latency}ms`, inline: true },
+                { name: "Задержка API", value: `${apiLatency}ms`, inline: true },
             );
 
             await InteractionHelper.safeEditReply(interaction, {
@@ -39,10 +39,10 @@ export default {
         } catch (error) {
             logger.error('Ping command error:', error);
             try {
-                return await InteractionHelper.safeReply(interaction, {
-                    embeds: [createEmbed({ title: 'System Error', description: 'Could not determine latency at this time.', color: 'error' })],
-                    flags: MessageFlags.Ephemeral,
-                });
+                 return await InteractionHelper.safeReply(interaction, {
+                     embeds: [createEmbed({ title: 'Системная ошибка', description: 'Не удалось определить задержку в данный момент.', color: 'error' })],
+                     flags: MessageFlags.Ephemeral,
+                 });
             } catch (replyError) {
                 logger.error('Failed to send error reply:', replyError);
             }

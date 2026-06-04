@@ -9,18 +9,18 @@ const WORK_COOLDOWN = 30 * 60 * 1000;
 const MIN_WORK_AMOUNT = 50;
 const MAX_WORK_AMOUNT = 300;
 const LAPTOP_MULTIPLIER = 1.5;
-const WORK_JOBS = [
-    "Software Developer",
-    "Barista",
-    "Janitor",
-    "YouTuber",
-    "Discord Bot Developer",
-    "Cashier",
-    "Pizza Delivery Driver",
-    "Librarian",
-    "Gardener",
-    "Data Analyst",
-];
+    const WORK_JOBS = [
+        "Software Developer",
+        "Barista",
+        "Janitor",
+        // "YouTuber",
+        "Discord Bot Developer",
+        "Cashier",
+        "Pizza Delivery Driver",
+        "Librarian",
+        "Gardener",
+        "Data Analyst",
+    ];
 
 export default {
     data: new SlashCommandBuilder()
