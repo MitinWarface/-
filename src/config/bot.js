@@ -6,8 +6,8 @@ export const botConfig = {
   // BOT PRESENCE (what users see under the bot name)
   // =========================
   // `status` options:
-  // - "online"    = зеленая точка
-  // - "idle"      = желтая луна
+  // - "online"    = green dot
+  // - "idle"      = yellow moon
   // - "dnd"       = red do-not-disturb
   // - "invisible" = appears offline
   presence: {
@@ -24,7 +24,7 @@ export const botConfig = {
     // 5 = Competing
     activities: [
       {
-        // Текст, который увидят пользователи (пример: "Игра /help | ЭтерисBot")
+        // Text users will see (example: "Playing /help | Titan Bot").
         name: "Made with ❤️",
         // Activity type number (0 = Playing).
         type: 0, 
@@ -136,7 +136,7 @@ export const botConfig = {
     },
     footer: {
       // Default footer text used in bot embeds.
-      text: "ЭтерисBot",
+      text: "Titan Bot",
       // Footer icon URL (null = no icon).
       icon: null,
     },
@@ -505,7 +505,7 @@ export function validateConfig(config) {
 
 const configErrors = validateConfig(botConfig);
 if (configErrors.length > 0) {
-   logger.error("Ошибки конфигурации бота:", configErrors.join("\n"));
+  logger.error("Bot configuration errors:", configErrors.join("\n"));
   if (process.env.NODE_ENV === "production") {
     process.exit(1);
   }

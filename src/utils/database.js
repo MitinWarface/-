@@ -21,13 +21,13 @@ class DatabaseWrapper {
         }
 
         try {
-             logger.info('Попытка подключения к PostgreSQL...');
+            logger.info('Attempting to connect to PostgreSQL...');
             const pgConnected = await pgDb.connect();
             if (pgConnected) {
                 this.db = pgDb;
                 this.connectionType = 'postgresql';
                 this.degradedReason = null;
-                 logger.info('✅ База данных PostgreSQL инициализирована - используется постоянная база данных');
+                logger.info('✅ PostgreSQL Database initialized - using persistent database');
                 this.initialized = true;
                 return;
             }
@@ -41,7 +41,7 @@ class DatabaseWrapper {
                 throw schemaError;
             }
         } catch (error) {
-             logger.warn('Ошибка подключения к Postgreлью:', error.message);
+            logger.warn('PostgreSQL connection failed:', error.message);
 
             if (error.code === 'SCHEMA_VERSION_MISMATCH') {
                 throw error;
@@ -53,8 +53,8 @@ class DatabaseWrapper {
         this.useFallback = true;
         this.connectionType = 'memory';
         this.degradedReason = 'POSTGRES_UNAVAILABLE';
-         logger.warn('⚠️  РЕЖИМ УХУДШЕННОЙ РАБОТЫ БАЗЫ ДАННЫХ ВКЛЮЧЕН - Используется хранилище в памяти (данные будут потеряны при перезапуске)');
-         logger.warn('⚠️  Пожалуйста, проверьте подключение к PostgreSQL и перезапустите бота после исправления');
+        logger.warn('⚠️  DATABASE DEGRADED MODE ENABLED - Using in-memory storage (data will be lost on restart)');
+        logger.warn('⚠️  Please check PostgreSQL connection and restart the bot when fixed');
         this.initialized = true;
         this.degradedModeWarningShown = true;
     }
@@ -163,12 +163,12 @@ export const db = new DatabaseWrapper();
 
 export async function initializeDatabase() {
     try {
-         logger.info("Инициализация базы данных (PostgreSQL > резерв в памяти)...");
+        logger.info("Initializing Database (PostgreSQL > Memory fallback)...");
         await db.initialize();
-         logger.info("✅ База данных инициализирована");
+        logger.info("✅ Database initialized");
         return { db };
     } catch (error) {
-         logger.error("❌ Ошибка инициализации базы данных:", error);
+        logger.error("❌ Database Initialization Error:", error);
 
         if (error.code === 'SCHEMA_VERSION_MISMATCH') {
             throw error;
@@ -183,7 +183,7 @@ export async function getFromDb(key, defaultValue = null) {
         const value = await db.get(key);
         return value === null ? defaultValue : value;
     } catch (error) {
-         logger.error(`Ошибка получения значения для ключа ${key}:`, error);
+        logger.error(`Error getting value for key ${key}:`, error);
         return defaultValue;
     }
 }
@@ -193,7 +193,7 @@ export async function setInDb(key, value, ttl = null) {
         await db.set(key, value, ttl);
         return true;
     } catch (error) {
-         logger.error(`Ошибка установки значения для ключа ${key}:`, error);
+        logger.error(`Error setting value for key ${key}:`, error);
         return false;
     }
 }
@@ -203,7 +203,7 @@ export async function deleteFromDb(key) {
         await db.delete(key);
         return true;
     } catch (error) {
-         logger.error(`Ошибка удаления ключа ${key}:`, error);
+        logger.error(`Error deleting key ${key}:`, error);
         return false;
     }
 }
@@ -235,7 +235,7 @@ export async function insertVerificationAudit(record) {
         await setInDb(key, auditEntries);
         return true;
     } catch (error) {
-         logger.error('Ошибка хранения аудита верификации:', error);
+        logger.error('Error storing verification audit:', error);
         return false;
     }
 }
@@ -278,7 +278,7 @@ export async function getGuildConfig(client, guildId, context = {}) {
 
         return normalizeGuildConfig(cleanedConfig, DEFAULT_GUILD_CONFIG);
     } catch (error) {
-         logger.error(`Ошибка получения конфигурации для гильдии ${guildId}`, {
+        logger.error(`Error fetching config for guild ${guildId}`, {
             error,
             traceId: context.traceId,
             guildId,
@@ -299,7 +299,7 @@ export async function getGuildConfig(client, guildId, context = {}) {
 export async function setGuildConfig(client, guildId, config, context = {}) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-             logger.error("Клиент базы данных недоступен для setGuildConfig");
+            logger.error("Database client is not available for setGuildConfig");
             return false;
         }
 
@@ -335,7 +335,7 @@ export const getColor = (path, fallback = "#000000") => {
 
     for (const part of parts) {
         if (current[part] === undefined) {
-             logger.warn(`Путь к цвету '${path}' не найден в конфигурации, используется fallback`);
+            logger.warn(`Color path '${path}' not found in config, using fallback`);
             return fallback;
         }
         current = current[part];
@@ -354,7 +354,7 @@ export async function getGuildBirthdays(client, guildId) {
     const key = getGuildBirthdaysKey(guildId);
     try {
         if (!client.db || typeof client.db.get !== "function") {
-             logger.error("Клиент базы данных недоступен для getGuildBirthdays.");
+            logger.error("Database client is not available for getGuildBirthdays.");
             return {};
         }
 
@@ -378,7 +378,7 @@ export async function getGuildBirthdays(client, guildId) {
 export async function setBirthday(client, guildId, userId, month, day) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-             logger.error("Клиент базы данных недоступен для setBirthday.");
+            logger.error("Database client is not available for setBirthday.");
             return false;
         }
 
@@ -403,7 +403,7 @@ export async function setBirthday(client, guildId, userId, month, day) {
 export async function deleteBirthday(client, guildId, userId) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-             logger.error("Клиент базы данных недоступен для deleteBirthday.");
+            logger.error("Database client is not available for deleteBirthday.");
             return false;
         }
 
@@ -445,7 +445,7 @@ export async function getGuildGiveaways(client, guildId) {
     const key = giveawayKey(guildId);
     try {
         if (!client.db || typeof client.db.get !== "function") {
-             logger.error("Клиент базы данных недоступен для getGuildGiveaways.");
+            logger.error("Database client is not available for getGuildGiveaways.");
             return {};
         }
 
@@ -467,7 +467,7 @@ export async function getGuildGiveaways(client, guildId) {
 export async function saveGiveaway(client, guildId, giveawayData) {
     try {
         if (!client.db || typeof client.db.set !== "function") {
-             logger.error("Клиент базы данных недоступен для saveGiveaway.");
+            logger.error("Database client is not available for saveGiveaway.");
             return false;
         }
 
@@ -479,7 +479,7 @@ export async function saveGiveaway(client, guildId, giveawayData) {
         await client.db.set(key, giveaways);
         return true;
     } catch (error) {
-         logger.error('Ошибка сохранения розыгрыша:', error);
+        logger.error('Error saving giveaway:', error);
         return false;
     }
 }
@@ -503,7 +503,7 @@ export async function deleteGiveaway(client, guildId, messageId) {
         }
         return false;
     } catch (error) {
-         logger.error('Ошибка удаления розыгрыша:', error);
+        logger.error('Error deleting giveaway:', error);
         return false;
     }
 }
@@ -517,7 +517,7 @@ export async function deleteGiveaway(client, guildId, messageId) {
 export async function getEndedGiveaways(client) {
     try {
         if (!client.db || !client.db.isAvailable()) {
-             logger.warn('База данных недоступна для getEndedGiveaways, используется fallback');
+            logger.warn('Database not available for getEndedGiveaways, using fallback');
             return [];
         }
 
@@ -538,7 +538,7 @@ export async function getEndedGiveaways(client) {
 
         return result.rows || [];
     } catch (error) {
-         logger.error('Ошибка получения завершенных розыгрышей:', error);
+        logger.error('Error getting ended giveaways:', error);
         return [];
     }
 }
@@ -553,7 +553,7 @@ export async function getEndedGiveaways(client) {
 export async function markGiveawayEnded(client, giveawayId, endedData) {
     try {
         if (!client.db || !client.db.isAvailable()) {
-             logger.warn('База данных недоступна для markGiveawayEnded');
+            logger.warn('Database not available for markGiveawayEnded');
             return false;
         }
 
@@ -573,7 +573,7 @@ export async function markGiveawayEnded(client, giveawayId, endedData) {
 
         return true;
     } catch (error) {
-         logger.error('Ошибка отметки розыгрыша как завершенного:', error);
+        logger.error('Error marking giveaway as ended:', error);
         return false;
     }
 }
