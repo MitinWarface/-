@@ -1,17 +1,17 @@
 import React from 'react';
 
-export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, children, ...props }, ref) => (
-  <div className={`bg-white rounded-lg shadow ${className || ''}`} ref={ref} {...props}>
+export const Card = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={`bg-white rounded-lg shadow ${className || ''}`} {...props}>
     {children}
   </div>
-));
-export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, children, ...props }, ref) => (
-  <div className={`mb-4 ${className || ''}`} ref={ref} {...props}>
+);
+export const CardHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={`mb-4 ${className || ''}`} {...props}>
     {children}
   </div>
-));
-export const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, children, ...props }, ref) => (
-  <div className={className || ''} ref={ref} {...props}>
+);
+export const CardContent = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={className || ''} {...props}>
     {children}
   </div>
-));
+);
