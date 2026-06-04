@@ -1,16 +1,6 @@
-import Redis from 'ioredis';
-
-const UPSTASH_REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
-const UPSTASH_REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-let redisClient: Redis | null = null;
-
-if (typeof window === 'undefined') {
-  if (UPSTASH_REDIS_URL && UPSTASH_REDIS_TOKEN) {
-    redisClient = new Redis(UPSTASH_REDIS_URL);
-  } else if (process.env.REDIS_URL) {
-    redisClient = new Redis(process.env.REDIS_URL);
-  }
+// Redis отключён в пользу PostgreSQL кеша.
+// Файл оставлен для совместимости импортов, но не экспортирует функции.
+export const redis = null;
 }
 
 export const redis = redisClient;
